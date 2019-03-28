@@ -1,4 +1,4 @@
-from parser import parse_and_export, read
+from parser import parse_and_export, read_sample, read_resting_sample
 import numpy as np
 import sys
 import os
@@ -6,7 +6,11 @@ import os
 
 np.set_printoptions(threshold=sys.maxsize)
 
-names = ['Egg1', 'Max1', 'Top1']
+names = [
+    'Egg1',
+    'Max1',
+    'Top1'
+]
 
 filenames = [
     'Egg1_OpenBCI-RAW-2019-03-22_17-44-27.txt',
@@ -22,7 +26,7 @@ dates = [
 
 get_input_filename = lambda index: f'./four_choice_ssvep/input/{filenames[index]}'
 get_output_folder = lambda index: f'./four_choice_ssvep/output/{names[index]}'
-get_output_filename_prefix = lambda folder_path, index: f'{folder_path}/{names[index]}'
+get_output_filename_prefix = lambda folder_path, index: f'{folder_path}/'
 
 
 for i in range(len(names)):
@@ -30,6 +34,6 @@ for i in range(len(names)):
     os.makedirs(output_folder, exist_ok=True)
     parse_and_export(dates[i], get_input_filename(i), get_output_filename_prefix(output_folder, i))
 
-# a = read(output_filename_prefix + '_wordsAtten_1.npy')
+a = read_sample('./four_choice_ssvep/output/Max1/data.npy')
+a = read_resting_sample('./four_choice_ssvep/output/Max1/resting.npy')
 # print(a[0])
-
